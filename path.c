@@ -64,18 +64,19 @@ double t1=omp_get_wtime();
 			int u = graph[j][0];
 			int v = graph[j][1];
 			int wt = graph[j][2];
-
+			
+			
+		#pragma omp critical {
 			if (dist[u] != INT_MAX
 				&& dist[u] + wt < dist[v])
-            {
-            #pragma omp critical
-			{  
+           		 { 
 				change=true;
 				dist[v] = dist[u] + wt;
-			}
 				
-            }			
+           		 }	
+		    }		
 		}
+	
 		if(change==false)
 		break;
 	}
